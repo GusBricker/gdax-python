@@ -62,7 +62,7 @@ class WebsocketClient(object):
 
         if self.auth:
             timestamp = str(time.time())
-            message = timestamp + 'GET' + '/users/self'
+            message = timestamp + 'GET' + '/users/self/verify'
             message = message.encode('ascii')
             hmac_key = base64.b64decode(self.api_secret)
             signature = hmac.new(hmac_key, message, hashlib.sha256)
