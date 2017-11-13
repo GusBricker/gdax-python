@@ -305,6 +305,11 @@ class GdaxAuth(AuthBase):
         hmac_key = base64.b64decode(self.secret_key)
         signature = hmac.new(hmac_key, message, hashlib.sha256)
         signature_b64 = base64.b64encode(signature.digest())
+        if isinstance(signature_b64, str):
+            signature_b64 = signature_b64.rstrip('\n')
+        else:
+            signature_b64 = signature_b64.decode('utf-8').rstrip('\n')
+
         request.headers.update({
             'Content-Type': 'Application/JSON',
             'CB-ACCESS-SIGN': signature_b64,
