@@ -68,9 +68,9 @@ class WebsocketClient(object):
             signature = hmac.new(hmac_key, message, hashlib.sha256)
             signature_b64 = base64.b64encode(signature.digest())
             if isinstance(signature_b64, str):
-                sub_params['signature'] = signature_b64
+                sub_params['signature'] = signature_b64.rstrip('\n')
             else:
-                sub_params['signature'] = signature_b64.decode('utf-8')
+                sub_params['signature'] = signature_b64.decode('utf-8').rstrip('\n')
             sub_params['key'] = self.api_key
             sub_params['passphrase'] = self.api_passphrase
             sub_params['timestamp'] = timestamp
